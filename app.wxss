@@ -1,0 +1,271 @@
+page {
+  background: #f4f6fb;
+  font-size: 28rpx;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(15, 23, 42, 0.06);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
+.btn {
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  padding: 0;
+  margin: 0;
+  line-height: 88rpx;
+  height: 88rpx;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: #2563eb;
+  border: 2rpx solid #2563eb;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.btn-sm {
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 24rpx;
+  padding: 0 28rpx;
+}
+
+.input {
+  background: #f3f4f6;
+  border-radius: 14rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 26rpx;
+  padding: 60rpx 0;
+}
+
+.divider {
+  height: 2rpx;
+  background: #f1f5f9;
+  margin: 20rpx 0;
+}
+
+/* ========== 密码输入：左侧输入框 + 右侧显示/隐藏按钮 ========== */
+.pwd-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pwd-input {
+  flex: 1;
+  padding-right: 150rpx;
+  margin-bottom: 20rpx;
+}
+
+.pwd-eye {
+  position: absolute;
+  right: 8rpx;
+  height: 88rpx;
+  min-width: 130rpx;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #2563eb;
+}
+
+/* ========== 一周课表网格：班级课表 / 教师课表 共用 ==========
+   行 = 节次（含上下课时间），列 = 星期一至星期五。
+   横向可滚动，因为 5 列 × 5~6 行在手机上放不下全宽。 */
+.grid-scroll {
+  width: 100%;
+}
+
+.grid {
+  /* 一屏放得下 5 天：节次列 76rpx + 5×~124rpx ≈ 700rpx，比 750rpx 屏宽略窄。
+     不再设 min-width 强制横向滚动，格子内部靠不换行 + 溢出省略自适应。 */
+  width: 100%;
+  background: #f8fafc;
+  border: 2rpx solid #e2e8f0;
+  border-radius: 14rpx;
+  overflow: hidden;
+}
+
+.g-row {
+  display: flex;
+  border-bottom: 2rpx solid #e2e8f0;
+}
+
+.g-row:last-child { border-bottom: none; }
+
+.g-head {
+  background: #eef2ff;
+}
+
+.g-head .g-corner,
+.g-head .g-col {
+  padding: 18rpx 0;
+  text-align: center;
+}
+
+.g-head-name {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.g-head-name.today { color: #2563eb; }
+
+.g-corner {
+  width: 76rpx;
+  flex: none;
+  padding: 10rpx 2rpx;
+  text-align: center;
+  background: #f1f5f9;
+  border-right: 2rpx solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+.g-corner-label {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #2563eb;
+  white-space: nowrap;
+}
+
+.g-corner-time {
+  font-size: 15rpx;
+  color: #94a3b8;
+  margin-top: 2rpx;
+  white-space: nowrap;
+  transform: scale(0.92);
+}
+
+.g-col {
+  flex: 1;
+  min-width: 0;
+  padding: 4rpx;
+  box-sizing: border-box;
+  border-right: 2rpx solid #e2e8f0;
+}
+
+.g-col:last-child { border-right: none; }
+
+.g-cell {
+  min-height: 84rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  border: 2rpx solid #e2e8f0;
+  padding: 6rpx 2rpx;
+  position: relative;
+  box-sizing: border-box;
+  /* 格子本身不换行，文字溢出用省略号 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+}
+
+.g-cell.empty-cell {
+  background: transparent;
+  border-color: transparent;
+}
+
+.g-cell.today-col {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.g-cell.swapped {
+  background: #fffbeb;
+  border-color: #fcd34d;
+}
+
+.g-subject {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.25;
+  /* 关键：不换行 + 超长省略。原来 break-all 会把「语文」竖着排成两行 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.g-teacher,
+.g-class {
+  /* 19rpx 字号 × 6 个汉字 ≈ 114rpx，正好塞进 ~117rpx 的列内可用宽度，
+     所以这里可以显示教师/班级全名，不需要简称 */
+  font-size: 19rpx;
+  color: #64748b;
+  margin-top: 2rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.g-swap {
+  position: absolute;
+  top: 2rpx;
+  right: 2rpx;
+  font-size: 15rpx;
+  line-height: 1;
+  padding: 2rpx 4rpx;
+  border-radius: 4rpx;
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: #94a3b8;
+  margin-bottom: 20rpx;
+}

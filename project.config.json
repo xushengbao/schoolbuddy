@@ -1,0 +1,42 @@
+{
+  "miniprogramRoot": "./",
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "schoolbuddy",
+  "description": "校园助手 - 教师课表/学生状态/站内通知",
+  "packOptions": {
+    "comment": "templates/ 是给用户参考的导入模版，不参与运行；SDK 已本地化到 utils/vendor-*.js，无需 node_modules",
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "test"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      },
+      {
+        "type": "folder",
+        "value": "templates"
+      },
+      {
+        "type": "file",
+        "value": "_verify.js"
+      },
+      {
+        "type": "file",
+        "value": "utils/patch-sdk-url.js"
+      }
+    ],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "ignoreDevUnusedFiles": false
+  },
+  "libVersion": "3.5.0"
+}

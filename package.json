@@ -1,0 +1,8 @@
+{
+  "name": "schoolbuddy",
+  "version": "1.0.0",
+  "description": "校园助手微信小程序",
+  "dependencies": {
+    "@tencent-ai/workbuddy-cloud-sdk": "dev"
+  }
+}

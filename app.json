@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/class-home/class-home",
+    "pages/schedule/schedule",
+    "pages/schedule-teacher/schedule-teacher",
+    "pages/makeup/makeup",
+    "pages/swap-detail/swap-detail",
+    "pages/students/students",
+    "pages/student-detail/student-detail",
+    "pages/teachers/teachers",
+    "pages/teacher-detail/teacher-detail",
+    "pages/notices/notices",
+    "pages/notice-detail/notice-detail",
+    "pages/class-message/class-message",
+    "pages/message-display/message-display",
+    "pages/admin/admin",
+    "pages/admin-import/admin-import",
+    "pages/admin-options/admin-options",
+    "pages/school-admin/school-admin",
+    "pages/periods/periods",
+    "pages/memo/memo",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#2563eb",
+    "navigationBarTitleText": "校园助手",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f6fb"
+  },
+  "tabBar": {
+    "color": "#8a94a6",
+    "selectedColor": "#2563eb",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/schedule/schedule", "text": "课程" },
+      { "pagePath": "pages/students/students", "text": "学生" },
+      { "pagePath": "pages/notices/notices", "text": "站内信" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
