@@ -1,0 +1,154 @@
+page {
+  background: #0f172a;
+}
+
+.display {
+  min-height: 100vh;
+  padding: 40rpx;
+}
+
+.d-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 24rpx;
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.15);
+}
+
+.d-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.d-sync {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #64748b;
+}
+
+.d-guide {
+  margin: 24rpx 0 8rpx;
+  padding: 28rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.28), rgba(37, 99, 235, 0.28));
+  border: 2rpx solid rgba(45, 212, 191, 0.6);
+}
+
+.d-guide-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #f0fdfa;
+}
+
+.d-guide-sub {
+  margin-top: 10rpx;
+  font-size: 25rpx;
+  color: #cbd5e1;
+}
+
+.d-guide-warn {
+  margin-top: 12rpx;
+  font-size: 23rpx;
+  color: #fcd34d;
+}
+
+.d-time {
+  font-size: 26rpx;
+  color: #94a3b8;
+}
+
+.d-body {
+  padding: 20rpx 0;
+}
+
+.d-item {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+}
+
+.d-item.d-new {
+  box-shadow: 0 0 0 2rpx rgba(45, 212, 191, 0.55);
+}
+
+.d-badge {
+  position: absolute;
+  top: -12rpx;
+  right: 20rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  background: #2dd4bf;
+  color: #0f172a;
+  font-size: 20rpx;
+  font-weight: 700;
+}
+
+.d-voice {
+  background: rgba(13, 148, 136, 0.22);
+  border-left: 8rpx solid #2dd4bf;
+}
+
+.d-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.d-teacher {
+  font-size: 26rpx;
+  color: #cbd5e1;
+  margin-right: 14rpx;
+}
+
+.d-mode {
+  background: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+}
+
+.d-spacer {
+  flex: 1;
+}
+
+.d-content {
+  font-size: 36rpx;
+  color: #f1f5f9;
+  line-height: 1.6;
+}
+
+.d-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.d-item .muted {
+  color: #94a3b8;
+}
+
+.play {
+  font-size: 25rpx;
+  color: #2dd4bf;
+  border: 2rpx solid rgba(45, 212, 191, 0.5);
+  border-radius: 999rpx;
+  padding: 8rpx 22rpx;
+}
+
+.play.playing {
+  background: rgba(45, 212, 191, 0.18);
+}
+
+.d-foot-bar {
+  display: flex;
+  gap: 20rpx;
+  padding: 30rpx 0 60rpx;
+}
+
+.d-foot-bar .btn-ghost {
+  background: transparent;
+  color: #cbd5e1;
+  border-color: #cbd5e1;
+}

@@ -1,0 +1,464 @@
+.tabs {
+  display: flex;
+  background: #ffffff;
+  padding: 0 8rpx;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 26rpx 0;
+  font-size: 28rpx;
+  color: #6b7280;
+  border-bottom: 6rpx solid transparent;
+}
+
+.tab.active {
+  color: #2563eb;
+  font-weight: 600;
+  border-bottom-color: #2563eb;
+}
+
+.day-bar {
+  display: flex;
+  background: #ffffff;
+  padding: 16rpx 8rpx;
+  gap: 12rpx;
+  overflow-x: auto;
+}
+
+.day {
+  flex-shrink: 0;
+  padding: 12rpx 24rpx;
+  border-radius: 999rpx;
+  background: #f1f5f9;
+  font-size: 25rpx;
+  color: #4b5563;
+}
+
+.day.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.lesson:last-child {
+  border-bottom: none;
+}
+
+.lesson-swap {
+  background: #fffbeb;
+}
+
+.lesson-period {
+  width: 110rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.period-no {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.1;
+}
+
+.period-label {
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.lesson-main {
+  flex: 1;
+  padding-left: 12rpx;
+}
+
+.lesson-subject {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.lesson-meta {
+  font-size: 23rpx;
+  color: #6b7280;
+  margin-top: 6rpx;
+}
+
+.badge {
+  font-size: 19rpx;
+  background: #f59e0b;
+  color: #ffffff;
+  border-radius: 6rpx;
+  padding: 2rpx 8rpx;
+  margin-left: 8rpx;
+  vertical-align: middle;
+}
+
+.link,
+.link-sm {
+  color: #2563eb;
+  font-size: 25rpx;
+}
+
+.link {
+  font-weight: 400;
+}
+
+.class-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.class-row:last-child {
+  border-bottom: none;
+}
+
+.class-name {
+  font-size: 29rpx;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16rpx;
+}
+
+.chip-select {
+  padding: 10rpx 22rpx;
+  border-radius: 999rpx;
+  background: #f1f5f9;
+  font-size: 24rpx;
+  color: #4b5563;
+  margin: 0 12rpx 12rpx 0;
+}
+
+.chip-select.on {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.cell-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.cell-period {
+  width: 70rpx;
+  font-size: 26rpx;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.cell-body {
+  flex: 1;
+}
+
+.cell-subject {
+  font-size: 29rpx;
+  font-weight: 600;
+}
+
+.cell-teacher {
+  font-size: 23rpx;
+  color: #6b7280;
+  margin-top: 4rpx;
+}
+
+.swap-tag {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.matrix {
+  width: 100%;
+}
+
+.matrix-inner {
+  /* 横向是全部班级，数量不受控，保留横向滚动；
+     但列宽压到 108rpx，8 个班就能在一屏内看到 */
+  min-width: 100%;
+}
+
+.matrix-row {
+  display: flex;
+}
+
+.matrix-head {
+  border-bottom: 2rpx solid #e5e7eb;
+}
+
+.mx-cell {
+  width: 108rpx;
+  flex-shrink: 0;
+  padding: 12rpx 2rpx;
+  font-size: 21rpx;
+  text-align: center;
+  border-right: 2rpx solid #f8fafc;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mx-period {
+  width: 56rpx;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.mx-teacher {
+  display: block;
+  font-size: 17rpx;
+  color: #9ca3af;
+  margin-top: 2rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swap-item {
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.swap-item:last-child {
+  border-bottom: none;
+}
+
+.swap-title {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: flex-end;
+  z-index: 50;
+}
+
+.sheet {
+  background: #ffffff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx;
+  width: 100%;
+}
+
+.sheet-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 24rpx;
+}
+
+.field {
+  margin-bottom: 24rpx;
+}
+
+.field-label {
+  font-size: 25rpx;
+  color: #6b7280;
+  margin-bottom: 12rpx;
+}
+
+.picker-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f3f4f6;
+  border-radius: 14rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+}
+
+.textarea {
+  min-height: 120rpx;
+  margin-bottom: 0;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 32rpx;
+}
+
+.sheet-actions .btn {
+  flex: 1;
+}
+
+/* ============ 换课弹层 ============ */
+
+.week-tabs {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.wt {
+  flex: 1;
+  text-align: center;
+  padding: 12rpx 0;
+  border-radius: 12rpx;
+  background: #f1f5f9;
+  font-size: 26rpx;
+  color: #4b5563;
+}
+
+.wt.on {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.pick-row {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 4rpx;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.pick-row:last-child {
+  border-bottom: none;
+}
+
+.pick-period {
+  width: 56rpx;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.pick-body {
+  flex: 1;
+  padding-left: 12rpx;
+}
+
+.pick-subject {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.picker-scroll {
+  max-height: 640rpx;
+}
+
+.teacher-group {
+  margin-bottom: 12rpx;
+}
+
+.teacher-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1e293b;
+  padding: 14rpx 4rpx 6rpx;
+  background: #f8fafc;
+}
+
+/* 该老师在我选中的那节课上有课 → 整位不可选 */
+.blocked-tip {
+  font-size: 22rpx;
+  color: #b45309;
+  background: #fffbeb;
+  border-left: 6rpx solid #f59e0b;
+  padding: 12rpx 16rpx;
+  margin: 4rpx 0 8rpx;
+  line-height: 1.5;
+}
+
+.swap-summary {
+  display: flex;
+  align-items: flex-start;
+  background: #f8fafc;
+  border-radius: 14rpx;
+  padding: 18rpx 20rpx;
+  font-size: 25rpx;
+  line-height: 1.5;
+  margin-bottom: 16rpx;
+}
+
+.swap-summary-label {
+  color: #94a3b8;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.swap-preview {
+  background: #eff6ff;
+  border-radius: 14rpx;
+  padding: 18rpx 20rpx;
+  font-size: 24rpx;
+  color: #1d4ed8;
+  line-height: 1.5;
+}
+
+/* 日期选择条：横向滚动的日期卡片 */
+.day-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.day-chip {
+  display: inline-block;
+  min-width: 150rpx;
+  padding: 14rpx 16rpx;
+  margin-right: 14rpx;
+  border-radius: 14rpx;
+  background: #f1f5f9;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.day-chip.on {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+
+.day-chip-top {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.day-chip.on .day-chip-top {
+  color: #2563eb;
+}
+
+.day-chip-sub {
+  font-size: 20rpx;
+  color: #6b7280;
+  margin-top: 4rpx;
+}
+
+.day-chip-cnt {
+  font-size: 19rpx;
+  color: #16a34a;
+  margin-top: 4rpx;
+}
+
+.day-chip-cnt.none {
+  color: #cbd5e1;
+}
+
+.picker-tip {
+  font-size: 24rpx;
+  color: #475569;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 20rpx;
+  line-height: 1.5;
+}

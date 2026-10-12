@@ -1,0 +1,33 @@
+<view class="login-page">
+  <view class="login-hero">
+    <view class="hero-logo">校</view>
+    <view class="hero-title">校园助手</view>
+    <view class="hero-sub">课表 · 学生状态 · 站内通知</view>
+  </view>
+
+  <view class="card login-card">
+    <view class="card-title">账号登录</view>
+    <input
+      class="input"
+      placeholder="教师账号 / 班级账号"
+      placeholder-class="ph"
+      value="{{account}}"
+      bindinput="onAccountInput"
+      confirm-type="next"
+    />
+    <view class="pwd-wrap">
+      <input
+        class="input pwd-input"
+        placeholder="密码"
+        placeholder-class="ph"
+        password="{{!showPwd}}"
+        value="{{password}}"
+        bindinput="onPasswordInput"
+        confirm-type="done"
+        bindconfirm="onLogin"
+      />
+      <view class="pwd-eye" bindtap="togglePwd">{{showPwd ? '隐藏' : '显示'}}</view>
+    </view>
+    <button class="btn" loading="{{loading}}" disabled="{{loading}}" bindtap="onLogin">登录</button>
+  </view>
+</view>

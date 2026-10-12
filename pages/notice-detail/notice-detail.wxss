@@ -1,0 +1,25 @@
+.n-tag {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.n-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin: 18rpx 0 10rpx;
+  line-height: 1.4;
+}
+
+.n-time {
+  font-size: 24rpx;
+}
+
+.n-body {
+  font-size: 29rpx;
+  line-height: 1.8;
+  color: #374151;
+}

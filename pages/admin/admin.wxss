@@ -1,0 +1,90 @@
+.grid4 {
+  display: flex;
+}
+
+.g4 {
+  flex: 1;
+  text-align: center;
+}
+
+.g4-num {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.1;
+}
+
+.g4-label {
+  font-size: 23rpx;
+  color: #6b7280;
+  margin-top: 6rpx;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+  font-size: 29rpx;
+}
+
+.menu:last-child { border-bottom: none; }
+
+.t-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.t-row:last-child { border-bottom: none; }
+
+.t-main { flex: 1; }
+
+.t-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.del {
+  font-size: 25rpx;
+  color: #ef4444;
+  padding: 10rpx 20rpx;
+  border: 2rpx solid #fecaca;
+  border-radius: 999rpx;
+}
+
+.field-label {
+  font-size: 25rpx;
+  color: #6b7280;
+  margin-bottom: 14rpx;
+}
+
+.cp-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20rpx;
+}
+
+.cp {
+  padding: 10rpx 22rpx;
+  border-radius: 999rpx;
+  background: #f1f5f9;
+  font-size: 25rpx;
+  color: #4b5563;
+  margin: 0 12rpx 12rpx 0;
+}
+
+.cp.on {
+  background: #2563eb;
+  color: #ffffff;
+}
+/* 说明文字：替代已下线的调课入口 */
+.tip-line {
+  font-size: 22rpx;
+  color: #94a3b8;
+  margin-top: 16rpx;
+  line-height: 1.6;
+}

@@ -1,0 +1,50 @@
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #2563eb 0%, #1e40af 100%);
+  padding-bottom: 60rpx;
+}
+
+.login-hero {
+  padding: 100rpx 48rpx 60rpx;
+  color: #ffffff;
+}
+
+.hero-logo {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  font-weight: 600;
+  margin-bottom: 28rpx;
+}
+
+.hero-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  font-size: 26rpx;
+  opacity: 0.85;
+  margin-top: 12rpx;
+}
+
+.login-card {
+  margin-top: 20rpx;
+}
+
+.ph {
+  color: #9ca3af;
+}
+
+.login-tip {
+  text-align: center;
+  font-size: 24rpx;
+  color: #9ca3af;
+  margin-top: 24rpx;
+}

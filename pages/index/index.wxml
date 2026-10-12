@@ -1,0 +1,107 @@
+<view class="home">
+  <!-- 日期时间 -->
+  <view class="hero">
+    <view class="hero-row">
+      <view class="hero-left">
+        <view class="hero-date">{{dateText}}</view>
+        <view class="hero-time">{{clockText}}</view>
+        <view class="hero-greet">{{greeting}}，{{session.name}}</view>
+        <view class="hero-school" wx:if="{{schoolName}}">{{schoolName}}</view>
+      </view>
+    </view>
+
+    <view class="hero-period" wx:if="{{nextPeriod}}">
+      <text class="dot"></text>
+      {{nextPeriod.label}} 还有 {{nextPeriod.minutes}} 分钟开始（{{nextPeriod.start}}）
+    </view>
+  </view>
+
+  <!-- 今日课程（教师版） -->
+  <view class="card">
+    <view class="card-title">
+      <text>我的今日课程</text>
+      <text class="link" bindtap="goSchedule">全部课表</text>
+    </view>
+    <view class="makeup-tip" wx:if="{{isMakeup}}">
+      今天是{{makeupText}}
+    </view>
+    <view wx:if="{{!loading && lessons.length === 0}}" class="empty">今天没有排课</view>
+    <view
+      class="lesson {{item.swapped ? 'lesson-swap' : ''}} {{item.isNow ? 'lesson-now' : ''}}"
+      wx:for="{{lessons}}"
+      wx:key="id"
+    >
+      <view class="lesson-period">
+        <view class="period-no">{{item.period}}</view>
+        <view class="period-label">{{item.periodLabel}}</view>
+      </view>
+      <view class="lesson-main">
+        <view class="lesson-subject">
+          {{item.subject}}
+          <text class="badge" wx:if="{{item.swapped}}">已换课</text>
+        </view>
+        <view class="lesson-meta">{{item.className}} · {{item.periodLabel}}</view>
+      </view>
+      <view class="lesson-actions">
+        <view class="btn-swap" catchtap="goSwap" data-id="{{item.id}}">换课</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 当前有课班级的学生状态 -->
+  <view class="card" wx:if="{{liveClasses.length > 0}}">
+    <view class="card-title">
+      <text>当前课时学生状态</text>
+      <text class="muted" wx:if="{{currentPeriodNo > 0}}">第{{currentPeriodNo}}节</text>
+    </view>
+    <view class="live-class" wx:for="{{liveClasses}}" wx:key="classId">
+      <view class="live-head">
+        <text class="live-name">{{item.className}}</text>
+        <text class="muted">{{item.summaryText}}</text>
+      </view>
+      <view class="live-chips">
+        <block wx:for="{{item.chips}}" wx:for-item="chip" wx:key="status">
+          <text class="tag chip" style="background:{{chip.bg}};color:{{chip.color}}">{{chip.status}} {{chip.count}}人</text>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备忘录 -->
+  <view class="card">
+    <view class="card-title">
+      <text>我的备忘录</text>
+      <text class="link" bindtap="goMemo">管理</text>
+    </view>
+    <view wx:if="{{memos.length === 0}}" class="empty">还没有备忘事项，点击「管理」添加</view>
+    <view class="memo" wx:for="{{memos}}" wx:key="id" bindtap="goMemo">
+      <view class="checkbox {{item.done ? 'checked' : ''}}"></view>
+      <text class="{{item.done ? 'done' : ''}}">{{item.content}}</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="card">
+    <view class="card-title">常用功能</view>
+    <view class="grid">
+      <view class="grid-item" bindtap="goSchedule">
+        <view class="grid-ico">📅</view>
+        <view class="grid-txt">课程管理</view>
+      </view>
+      <view class="grid-item" bindtap="goStudents">
+        <view class="grid-ico">👥</view>
+        <view class="grid-txt">学生管理</view>
+      </view>
+      <view class="grid-item" bindtap="goTeachers">
+        <view class="grid-ico">🧑‍🏫</view>
+        <view class="grid-txt">教师状态</view>
+      </view>
+      <view class="grid-item" bindtap="goMessage">
+        <view class="grid-ico">📢</view>
+        <view class="grid-txt">班级消息</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

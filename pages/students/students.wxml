@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">
+      <text>学生状态</text>
+      <text class="link" wx:if="{{isAdmin}}" bindtap="goImport">导入学生</text>
+    </view>
+    <view class="class-picker">
+      <view
+        class="cp {{item.id === classId ? 'on' : ''}}"
+        wx:for="{{classes}}"
+        wx:key="id"
+        bindtap="pickClass"
+        data-id="{{item.id}}"
+      >{{item.name}}</view>
+    </view>
+
+    <view class="stat-row">
+      <view class="stat" wx:for="{{totalStats}}" wx:key="status">
+        <view class="stat-num" style="color:{{item.color}}">{{item.count}}</view>
+        <view class="stat-label">{{item.status}}</view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+    <view class="sub-title">分节状态</view>
+    <view class="period-status" wx:for="{{periodStats}}" wx:key="period">
+      <view class="ps-name">{{item.label}}</view>
+      <view class="ps-chips">
+        <text wx:for="{{item.chips}}" wx:for-item="chip" wx:key="status"
+          class="tag chip" style="background:{{chip.bg}};color:{{chip.color}}">{{chip.status}} {{chip.count}}人</text>
+        <text wx:if="{{item.chips.length === 0}}" class="muted">全部在位</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">
+      <text>学生名单（{{students.length}}）</text>
+      <text class="muted">点击可设置状态</text>
+    </view>
+    <view wx:if="{{students.length === 0}}" class="empty">该班还没有学生，请先导入</view>
+    <view class="stu-row" wx:for="{{students}}" wx:key="id" bindtap="openStudent" data-id="{{item.id}}">
+      <view class="stu-left">
+        <view class="stu-name">{{item.name}}</view>
+        <view class="muted">{{item.student_no}}</view>
+      </view>
+      <view class="stu-right">
+        <block wx:if="{{item.dayStatus}}">
+          <text class="tag" style="background:{{item.dayStatus.bg}};color:{{item.dayStatus.color}}">全天 {{item.dayStatus.status}}</text>
+        </block>
+        <block wx:for="{{item.periodStatus}}" wx:for-item="p" wx:key="period">
+          <text class="tag chip" style="background:{{p.bg}};color:{{p.color}}">第{{p.period}}节 {{p.status}}</text>
+        </block>
+        <text class="muted" wx:if="{{!item.dayStatus && item.periodStatus.length === 0}}">在位</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

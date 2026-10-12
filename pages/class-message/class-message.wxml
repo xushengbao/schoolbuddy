@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">向班级发送消息</view>
+    <view class="field-label">选择班级</view>
+    <view class="class-picker">
+      <view class="cp {{item.id === classId ? 'on' : ''}}" wx:for="{{classes}}" wx:key="id"
+        bindtap="pickClass" data-id="{{item.id}}">{{item.name}}</view>
+    </view>
+
+    <view class="field-label">消息形式</view>
+    <view class="mode-row">
+      <view class="mode {{mode === 'text' ? 'on' : ''}}" bindtap="setMode" data-m="text">
+        <view class="mode-ico">🔕</view>
+        <view class="mode-name">静默文字</view>
+        <view class="mode-desc">仅文字显示，不播报</view>
+      </view>
+      <view class="mode {{mode === 'voice' ? 'on' : ''}}" bindtap="setMode" data-m="voice">
+        <view class="mode-ico">🔊</view>
+        <view class="mode-name">语音播报</view>
+        <view class="mode-desc">自动朗读，适合通知类</view>
+      </view>
+    </view>
+    <view wx:if="{{mode === 'voice' && !ttsSupported}}" class="tts-warn">
+      ⚠ 当前版本未启用语音播报插件，语音类通知会以醒目文字展示（内容不会丢）。
+      如需语音播报，请先在微信公众平台「设置 → 第三方设置 → 插件管理」开通「微信同声传译」。
+    </view>
+
+    <view class="field-label">消息内容</view>
+    <textarea class="input textarea" placeholder="请输入要发送的消息" value="{{content}}" bindinput="onContentInput" auto-height></textarea>
+
+    <view class="quick-row">
+      <view class="quick" wx:for="{{quickTexts}}" wx:key="*this" bindtap="useQuick" data-t="{{item}}">{{item}}</view>
+    </view>
+
+    <view class="btn-row">
+      <view class="btn" bindtap="send">发送</view>
+      <view class="btn btn-ghost" wx:if="{{mode === 'voice'}}" bindtap="previewVoice">试听效果</view>
+    </view>
+    <view class="send-tip">班级端每 5 秒自动刷新一次，发送后无需手动下拉即可看到</view>
+  </view>
+
+  <view class="card" wx:if="{{history.length > 0}}">
+    <view class="card-title">发送记录</view>
+    <view class="h-item" wx:for="{{history}}" wx:key="id">
+      <view class="row">
+        <text class="tag {{item.mode === 'voice' ? 'tag-voice' : ''}}">{{item.mode === 'voice' ? '语音' : '文字'}}</text>
+        <text class="muted">{{item.className}} · {{item.timeText}}</text>
+      </view>
+      <view class="h-content">{{item.content}}</view>
+    </view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

@@ -1,0 +1,98 @@
+<view class="home">
+  <view class="hero">
+    <view class="hero-row">
+      <view class="hero-left">
+        <view class="hero-date">{{dateText}}</view>
+        <view class="hero-time">{{clockText}}</view>
+        <view class="hero-greet">{{session.name}}</view>
+      </view>
+    </view>
+    <view class="hero-period" wx:if="{{nextPeriod}}">
+      <text class="dot"></text>{{nextPeriod.label}} 还有 {{nextPeriod.minutes}} 分钟开始（{{nextPeriod.start}}）
+    </view>
+  </view>
+
+  <!-- 班级消息（语音自动播报） -->
+  <view class="card">
+    <view class="card-title">
+      <text>班级通知</text>
+      <text class="link" bindtap="goDisplay">大屏展示</text>
+    </view>
+    <block wx:if="{{messages.length === 0}}">
+      <view class="empty">暂无班级通知</view>
+    </block>
+    <view class="msg {{item.mode === 'voice' ? 'msg-voice' : ''}}" wx:for="{{messages}}" wx:key="id">
+      <view class="msg-head">
+        <text class="msg-teacher">{{item.teacher_name}}</text>
+        <text class="tag msg-mode" wx:if="{{item.mode === 'voice'}}">语音播报</text>
+        <text class="msg-mode-text" wx:else>静默文字</text>
+      </view>
+      <view class="msg-content">{{item.content}}</view>
+      <view class="msg-foot">
+        <text class="msg-time">{{item.timeText}}</text>
+        <view wx:if="{{item.mode === 'voice'}}" class="msg-play"
+          catchtap="playMessage" data-id="{{item.id}}" data-text="{{item.content}}">
+          {{item.id === speakingId ? '🔊 播报中' : '▶ 朗读' }}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 本班今日课程 -->
+  <view class="card">
+    <view class="card-title">今日课程表</view>
+    <view class="makeup-tip" wx:if="{{isMakeup}}">
+      今天是{{makeupText}}
+    </view>
+    <view wx:if="{{lessons.length === 0}}" class="empty">今天没有排课</view>
+    <view class="lesson {{item.isNow ? 'lesson-now' : ''}}" wx:for="{{lessons}}" wx:key="id">
+      <view class="lesson-period">
+        <view class="period-no">{{item.period}}</view>
+        <view class="period-label">{{item.shortLabel}}</view>
+      </view>
+      <view class="lesson-main">
+        <view class="lesson-subject">{{item.subject}}<text class="badge" wx:if="{{item.swapped}}">已换课</text></view>
+        <view class="lesson-meta">{{item.teacherName}} · {{item.periodLabel}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学生状态汇总 -->
+  <view class="card">
+    <view class="card-title">
+      <text>今日学生状态</text>
+      <text class="link" bindtap="goStudents">管理</text>
+    </view>
+    <view class="stat-row">
+      <view class="stat" wx:for="{{totalStats}}" wx:key="status">
+        <view class="stat-num" style="color:{{item.color}}">{{item.count}}</view>
+        <view class="stat-label">{{item.status}}</view>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="sub-title">分节状态</view>
+    <view class="period-status" wx:for="{{periodStats}}" wx:key="period">
+      <view class="ps-name">{{item.label}}</view>
+      <view class="ps-chips">
+        <text wx:for="{{item.chips}}" wx:for-item="chip" wx:key="status"
+          class="tag chip" style="background:{{chip.bg}};color:{{chip.color}}">{{chip.status}} {{chip.count}}人</text>
+        <text wx:if="{{item.chips.length === 0}}" class="muted">全部在位</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备忘录 -->
+  <view class="card">
+    <view class="card-title">
+      <text>班级备忘录</text>
+      <text class="link" bindtap="goMemo">管理</text>
+    </view>
+    <view wx:if="{{memos.length === 0}}" class="empty">还没有备忘事项</view>
+    <view class="memo" wx:for="{{memos}}" wx:key="id" bindtap="goMemo">
+      <view class="checkbox {{item.done ? 'checked' : ''}}"></view>
+      <text class="{{item.done ? 'done' : ''}}">{{item.content}}</text>
+    </view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

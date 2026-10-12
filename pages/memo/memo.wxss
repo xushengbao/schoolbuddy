@@ -1,0 +1,46 @@
+.textarea {
+  min-height: 140rpx;
+}
+
+.add {
+  width: 180rpx;
+}
+
+.m-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.m-row:last-child { border-bottom: none; }
+
+.checkbox {
+  width: 34rpx;
+  height: 34rpx;
+  border: 3rpx solid #d1d5db;
+  border-radius: 8rpx;
+  margin-right: 18rpx;
+  flex-shrink: 0;
+}
+
+.checkbox.checked {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.m-content {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.del {
+  font-size: 24rpx;
+  color: #ef4444;
+  padding-left: 20rpx;
+}

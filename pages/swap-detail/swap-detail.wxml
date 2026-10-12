@@ -1,0 +1,50 @@
+<view class="page">
+  <view class="card" wx:if="{{detail}}">
+    <view class="card-title">
+      <text>换课申请详情</text>
+      <text class="tag" style="background:{{detail.statusBg}};color:{{detail.statusColor}}">{{detail.statusText}}</text>
+    </view>
+    <view class="info-row"><text class="k">申请人</text><text class="v">{{detail.requester_name}}</text></view>
+    <view class="info-row"><text class="k">接收方</text><text class="v">{{detail.target_name}}</text></view>
+    <view class="divider"></view>
+
+    <view class="slot-card">
+      <view class="slot-head">① {{detail.requester_name}} 让出的课</view>
+      <view class="slot-line">{{detail.firstText}}（{{detail.firstClassName}}）</view>
+      <view class="muted">原任课：{{detail.firstTeacher}}</view>
+    </view>
+    <view class="slot-arrow">⇅ 两节课对调</view>
+    <view class="slot-card" wx:if="{{detail.secondText}}">
+      <view class="slot-head">② {{detail.target_name}} 让出的课</view>
+      <view class="slot-line">{{detail.secondText}}（{{detail.secondClassName}}）</view>
+      <view class="muted">原任课：{{detail.secondTeacher}}</view>
+    </view>
+    <view class="slot-card" wx:else>
+      <view class="slot-head muted">② 对方未指定要让出的课（旧的单节课换课）</view>
+    </view>
+
+    <view class="divider"></view>
+    <view class="info-row"><text class="k">原因</text><text class="v">{{detail.reason || '未填写'}}</text></view>
+    <block wx:if="{{detail.reply_note}}">
+      <view class="divider"></view>
+      <view class="info-row"><text class="k">处理备注</text><text class="v">{{detail.reply_note}}</text></view>
+    </block>
+  </view>
+
+  <view class="card" wx:if="{{canHandle}}">
+    <view class="card-title">处理</view>
+    <textarea class="input textarea" placeholder="拒绝时可填写备注（选填）" value="{{note}}" bindinput="onNoteInput" auto-height></textarea>
+    <view class="actions">
+      <view class="btn btn-ghost btn-sm" bindtap="onReject">拒绝</view>
+      <view class="btn btn-sm" bindtap="onApprove">同意换课</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{canCancel}}">
+    <view class="card-title">撤销</view>
+    <view class="muted" style="margin-bottom:20rpx;line-height:1.6">{{cancelTip}}</view>
+    <view class="btn btn-danger btn-sm" bindtap="onCancel">撤销这次换课</view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

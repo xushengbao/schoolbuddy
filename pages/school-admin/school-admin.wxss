@@ -1,0 +1,156 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.menu:last-child {
+  border-bottom: none;
+}
+
+.menu-on {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* 顶部身份条 */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bar-l {
+  display: flex;
+  flex-direction: column;
+}
+
+.bar-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* 管理员账号行 */
+.t-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.t-row:last-child {
+  border-bottom: none;
+}
+
+.t-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.t-name {
+  font-size: 28rpx;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.acct {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-left: 20rpx;
+}
+
+.acct-n {
+  font-size: 26rpx;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.btn-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.btn-row .btn {
+  flex: 1;
+}
+
+.mt {
+  margin-top: 16rpx;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+.tip {
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.7;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  padding: 18rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.field-label {
+  font-size: 26rpx;
+  color: #6b7280;
+  margin: 20rpx 0 14rpx;
+}
+
+.file-name {
+  font-size: 24rpx;
+  color: #2563eb;
+  margin: 14rpx 0;
+}
+
+.result-msg {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #15803d;
+  margin-bottom: 12rpx;
+}
+
+.preview {
+  width: 100%;
+  border: 2rpx solid #f1f5f9;
+  border-radius: 12rpx;
+  padding: 8rpx;
+  background: #f8fafc;
+}
+
+.pv-inner {
+  display: inline-block;
+  min-width: 100%;
+}
+
+.pv-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.pv-cell {
+  flex: 0 0 auto;
+  max-width: 220rpx;
+  padding: 10rpx 16rpx;
+  font-size: 22rpx;
+  color: #374151;
+  border-right: 2rpx solid #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+textarea.input {
+  min-height: 180rpx;
+  width: 100%;
+  box-sizing: border-box;
+}

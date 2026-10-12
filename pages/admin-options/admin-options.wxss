@@ -1,0 +1,49 @@
+.tip {
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.7;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  padding: 18rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.opt-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.opt {
+  padding: 14rpx 26rpx;
+  border-radius: 999rpx;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 25rpx;
+  margin: 0 14rpx 14rpx 0;
+}
+
+.opt.locked {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.opt-del {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.add-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.add-input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.add-btn {
+  width: 150rpx;
+}

@@ -1,0 +1,293 @@
+<view class="page">
+  <view class="tabs">
+    <view class="tab {{tab === 'mine' ? 'active' : ''}}" bindtap="switchTab" data-tab="mine">我的课表</view>
+    <view class="tab {{tab === 'school' ? 'active' : ''}}" bindtap="switchTab" data-tab="school">全校总课表</view>
+    <view class="tab {{tab === 'swap' ? 'active' : ''}}" bindtap="switchTab" data-tab="swap">换课申请</view>
+  </view>
+
+  <view wx:if="{{tab === 'mine'}}" class="day-bar">
+    <view class="day {{dayOffset === 0 ? 'active' : ''}}" bindtap="changeDay" data-offset="0">今天</view>
+    <view class="day {{dayOffset === 1 ? 'active' : ''}}" bindtap="changeDay" data-offset="1">明天</view>
+    <view class="day {{dayOffset === 2 ? 'active' : ''}}" bindtap="changeDay" data-offset="2">后天</view>
+    <view class="day" bindtap="pickAnyDay">选择日期</view>
+  </view>
+
+  <!-- 我的课表 -->
+  <block wx:if="{{tab === 'mine'}}">
+    <view class="card">
+      <view class="card-title">
+        <text>{{dayText}}</text>
+        <text class="link" wx:if="{{session.role !== 'class'}}" bindtap="startSwap">发起换课</text>
+        <text class="muted" wx:elif="{{isAdmin}}">管理员</text>
+      </view>
+      <view wx:if="{{lessons.length === 0}}" class="empty">这一天没有排课</view>
+      <view class="lesson {{item.swapped ? 'lesson-swap' : ''}}" wx:for="{{lessons}}" wx:key="key">
+        <view class="lesson-period">
+          <view class="period-no">{{item.period}}</view>
+          <view class="period-label">{{item.shortLabel}}</view>
+        </view>
+        <view class="lesson-main">
+          <view class="lesson-subject">{{item.subject}}<text class="badge" wx:if="{{item.swapped}}">已换课</text></view>
+          <view class="lesson-meta">{{item.className}} · {{item.teacherName}}</view>
+          <view class="muted" wx:if="{{item.swapped}}">{{item.swapText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{myClasses.length > 0}}">
+      <view class="card-title">我任教的班级</view>
+      <view class="class-row" wx:for="{{myClasses}}" wx:key="id" bindtap="viewClassSchedule" data-id="{{item.id}}">
+        <text class="class-name">{{item.name}}</text>
+        <!-- grade 可能为 null，直接渲染会在名字后面显示一个 "null" -->
+        <text class="muted" wx:if="{{item.grade}}">{{item.grade}}</text>
+        <text class="muted" wx:else>查看课表 ›</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 全校总课表 -->
+  <block wx:elif="{{tab === 'school'}}">
+    <view class="card">
+      <view class="card-title">
+        <text>全校总课表</text>
+        <text class="link" bindtap="importSchedule">导入课表</text>
+      </view>
+      <view class="filter-row">
+        <view class="chip-select {{allClasses ? 'on' : ''}}" bindtap="toggleAllClasses">全部班级</view>
+        <view
+          class="chip-select {{!allClasses && item.id === pickedClassId ? 'on' : ''}}"
+          wx:for="{{classes}}"
+          wx:key="id"
+          bindtap="pickClass"
+          data-id="{{item.id}}"
+        >{{item.name}}</view>
+      </view>
+
+      <view wx:if="{{!allClasses && classTotal === 0}}" class="empty">该班暂无课表</view>
+      <view wx:if="{{allClasses && schoolMatrix.length === 0}}" class="empty">暂无课表数据</view>
+
+      <!-- 单班：一周视图（行=节次，列=周一至周五），与班级详情页一致 -->
+      <block wx:if="{{!allClasses}}">
+        <view class="hint" wx:if="{{classTotal > 0}}">本周共 {{classTotal}} 节课 · 今天所在列已高亮 · 点格子看全称与教师</view>
+        <scroll-view class="grid-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
+          <view class="grid">
+            <view class="g-row g-head">
+              <view class="g-corner">节次</view>
+              <view class="g-col" wx:for="{{weekdays}}" wx:key="w">
+                <view class="g-head-name {{item.w === todayWeekday ? 'today' : ''}}">{{item.name}}</view>
+              </view>
+            </view>
+            <view class="g-row" wx:for="{{classRows}}" wx:key="period" wx:for-item="row">
+              <view class="g-corner">
+                <view class="g-corner-label">{{row.label}}</view>
+                <view class="g-corner-time">{{row.timeText}}</view>
+              </view>
+              <view
+                class="g-col"
+                wx:for="{{row.cells}}"
+                wx:key="key"
+                wx:for-item="cell"
+                bindtap="tapClassCell"
+                data-subject="{{cell.subject}}"
+                data-teacher-name="{{cell.teacherName}}"
+                data-swap-text="{{cell.swapText}}"
+                data-weekday="{{cell.weekday}}"
+                data-period="{{cell.period}}"
+                data-time-text="{{row.timeText}}"
+              >
+                <view class="g-cell {{cell.subject ? '' : 'empty-cell'}} {{cell.isToday ? 'today-col' : ''}} {{cell.swapped ? 'swapped' : ''}}">
+                  <view class="g-subject" wx:if="{{cell.subject}}">{{cell.shortName}}</view>
+                  <view class="g-teacher" wx:if="{{cell.subject && cell.teacherName}}">{{cell.teacherName}}</view>
+                  <view class="g-swap" wx:if="{{cell.swapped}}">换</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </block>
+
+      <!-- 全校：班级 × 节次 矩阵（只看选中的那一天） -->
+      <block wx:else>
+        <view class="hint">选一天查看各班级在该天的课</view>
+        <view class="day-bar">
+          <view class="day {{weekday === 1 ? 'active' : ''}}" bindtap="pickWeekday" data-w="1">周一</view>
+          <view class="day {{weekday === 2 ? 'active' : ''}}" bindtap="pickWeekday" data-w="2">周二</view>
+          <view class="day {{weekday === 3 ? 'active' : ''}}" bindtap="pickWeekday" data-w="3">周三</view>
+          <view class="day {{weekday === 4 ? 'active' : ''}}" bindtap="pickWeekday" data-w="4">周四</view>
+          <view class="day {{weekday === 5 ? 'active' : ''}}" bindtap="pickWeekday" data-w="5">周五</view>
+        </view>
+        <scroll-view class="matrix" scroll-x="{{true}}" show-scrollbar="{{false}}">
+          <view class="matrix-inner">
+            <view class="matrix-row matrix-head">
+              <view class="mx-cell mx-period">节</view>
+              <view class="mx-cell mx-class" wx:for="{{classes}}" wx:key="id">{{item.shortName || item.name}}</view>
+            </view>
+            <view class="matrix-row" wx:for="{{schoolMatrix}}" wx:key="period">
+              <view class="mx-cell mx-period">{{item.period}}</view>
+              <view class="mx-cell mx-class" wx:for="{{item.cells}}" wx:for-item="cell" wx:key="classId">
+                <text wx:if="{{cell.subject}}">{{cell.shortName}}</text>
+                <text class="mx-teacher" wx:if="{{cell.subject && cell.teacherName}}">{{cell.teacherName}}</text>
+                <text wx:else class="muted">—</text>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </block>
+    </view>
+  </block>
+
+  <!-- 换课申请 -->
+  <block wx:else>
+    <view class="card">
+      <view class="card-title">
+        <text>我发起的</text>
+        <text class="link" bindtap="startSwap">新建</text>
+      </view>
+      <view wx:if="{{mySwaps.length === 0}}" class="empty">暂无发起记录</view>
+      <view class="swap-item" wx:for="{{mySwaps}}" wx:key="id" bindtap="openSwap" data-id="{{item.id}}">
+        <view class="row">
+          <text class="swap-title">{{item.summary}}</text>
+          <text class="tag" style="background:{{item.statusBg}};color:{{item.statusColor}}">{{item.statusText}}</text>
+        </view>
+        <view class="row">
+          <text class="muted">与 {{item.target_name}} 互换｜原因：{{item.reason || '未填写'}}</text>
+          <!-- 待处理与已同意都可以撤销，列表上直接给一个入口 -->
+          <text
+            class="link"
+            wx:if="{{item.status === 'pending' || item.status === 'approved'}}"
+            catchtap="quickCancel"
+            data-id="{{item.id}}"
+          >撤销</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">待我处理<text class="muted">待处理与已同意均可撤销</text></view>
+      <view wx:if="{{inboxSwaps.length === 0}}" class="empty">没有待处理或可撤销的换课</view>
+      <view class="swap-item" wx:for="{{inboxSwaps}}" wx:key="id" bindtap="openSwap" data-id="{{item.id}}">
+        <view class="row">
+          <text class="swap-title">{{item.requester_name}} 发起换课</text>
+          <text class="tag" style="background:{{item.statusBg}};color:{{item.statusColor}}">{{item.statusText}}</text>
+        </view>
+        <view class="row">
+          <text class="muted">{{item.summary}}｜原因：{{item.reason || '未填写'}}</text>
+          <text class="link" catchtap="quickCancel" data-id="{{item.id}}">撤销</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view style="height:40rpx"></view>
+
+  <!-- 发起换课弹层：先选自己的一节课，再选对方的老师与一节课 -->
+  <view class="mask" wx:if="{{swapPanel}}">
+    <view class="sheet">
+      <view class="sheet-title">发起换课申请 · 第{{swapStep}}步</view>
+
+      <!-- 第 1 步：选自己要让出去的那节课（可挑未来两周内的任意一天） -->
+      <block wx:if="{{swapStep === 1}}">
+        <view class="field">
+          <view class="field-label">选择哪一天</view>
+          <scroll-view class="day-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
+            <view class="day-chip {{swapDayIndex === index ? 'on' : ''}}"
+              wx:for="{{swapDays}}" wx:key="date" wx:index="index"
+              bindtap="pickSwapDay" data-index="{{index}}">
+              <view class="day-chip-top">{{item.label}}</view>
+              <view class="day-chip-sub">{{item.sub}}</view>
+              <view class="day-chip-cnt" wx:if="{{item.count > 0}}">{{item.count}} 节</view>
+              <view class="day-chip-cnt none" wx:else>无课</view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view class="field">
+          <view class="field-label">选择我的哪一节课</view>
+          <view wx:if="{{swapLessons.length === 0}}" class="empty">这一天我没有课，换一天看看</view>
+          <view class="pick-row" wx:for="{{swapLessons}}" wx:key="key" bindtap="pickFirst" data-index="{{index}}">
+            <view class="pick-period">{{item.period}}</view>
+            <view class="pick-body">
+              <view class="pick-subject">{{item.subject}}</view>
+              <view class="muted">{{item.dateLabel}} · {{item.className}} · {{item.timeText}}</view>
+            </view>
+            <text class="muted">›</text>
+          </view>
+        </view>
+      </block>
+
+      <!-- 第 2 步：确认两节课并填原因 -->
+      <block wx:else>
+        <view class="swap-summary" wx:if="{{swapForm.first}}">
+          <text class="swap-summary-label">我的课</text>
+          <text>{{swapForm.first.dateLabel}} 第{{swapForm.first.period}}节 {{swapForm.first.subject}}（{{swapForm.first.className}}）</text>
+        </view>
+        <view class="swap-summary" wx:if="{{swapForm.second}}">
+          <text class="swap-summary-label">对方的课</text>
+          <text>{{swapForm.second.dateLabel}} 第{{swapForm.second.period}}节 {{swapForm.second.subject}}（{{swapForm.second.className}}）　任课：{{swapForm.targetName}}</text>
+        </view>
+
+        <view class="field">
+          <view class="field-label">换课原因</view>
+          <textarea class="input textarea" placeholder="例如：外出开会 / 参加教研活动" value="{{swapForm.reason}}" bindinput="onReasonInput" auto-height></textarea>
+        </view>
+
+        <view class="swap-preview" wx:if="{{swapForm.first && swapForm.second}}">
+          同意后：{{swapForm.targetName}} 上「{{swapForm.first.dateLabel}} 第{{swapForm.first.period}}节 {{swapForm.first.subject}}」，
+          你上「{{swapForm.second.dateLabel}} 第{{swapForm.second.period}}节 {{swapForm.second.subject}}」。
+        </view>
+      </block>
+
+      <view class="sheet-actions">
+        <view class="btn btn-ghost btn-sm" bindtap="closeSwap">取消</view>
+        <view class="btn btn-ghost btn-sm" wx:if="{{swapStep === 2}}" bindtap="backToStep1">上一步</view>
+        <view class="btn btn-sm" wx:if="{{swapStep === 2}}" bindtap="submitSwap">发送申请</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 接收老师选择器：可搜索的完整列表（列出对方未来两周内可让出的课） -->
+  <view class="mask" wx:if="{{teacherPicker}}">
+    <view class="sheet">
+      <view class="sheet-title">选择要与谁换课</view>
+      <view class="picker-tip" wx:if="{{swapForm.first}}">
+        我的课：{{swapForm.first.dateLabel}} 第{{swapForm.first.period}}节 {{swapForm.first.subject}}
+      </view>
+      <view class="field">
+        <view class="field-label">搜索老师</view>
+        <input class="input" placeholder="输入姓名筛选" value="{{teacherKeyword}}" bindinput="onKeywordInput" />
+      </view>
+      <scroll-view class="picker-scroll" scroll-y="{{true}}">
+        <view wx:if="{{teacherCandidates.length === 0}}" class="empty">未来两周内没有可换课的老师</view>
+        <view class="teacher-group" wx:for="{{teacherCandidates}}" wx:key="id">
+          <view class="teacher-name">
+            {{item.name}}　<text class="muted">{{item.group}}</text>
+          </view>
+          <!-- 该老师在我选中的那节课上已经有课 → 整位不可选，保留提示避免用户以为系统漏人 -->
+          <view class="blocked-tip" wx:if="{{item.blocked}}">{{item.blocked}}</view>
+          <view
+            class="pick-row"
+            wx:for="{{item.lessons}}"
+            wx:key="index"
+            wx:for-item="lesson"
+            wx:for-index="li"
+            bindtap="pickCandidate"
+            data-id="{{item.id}}"
+            data-name="{{item.name}}"
+            data-index="{{li}}"
+          >
+            <view class="pick-period">{{lesson.period}}</view>
+            <view class="pick-body">
+              <view class="pick-subject">{{lesson.subject}}</view>
+              <view class="muted">{{lesson.dateLabel}} · {{lesson.className}}</view>
+            </view>
+            <text class="muted">›</text>
+          </view>
+          <view class="muted" wx:if="{{item.blocked && item.lessons.length === 0}}">该老师未来两周没有可换的课</view>
+        </view>
+      </scroll-view>
+      <view class="sheet-actions">
+        <view class="btn btn-ghost btn-sm" bindtap="closeTeacherPicker">取消</view>
+      </view>
+    </view>
+  </view>
+</view>

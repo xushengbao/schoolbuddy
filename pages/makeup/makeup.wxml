@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">调休设置</view>
+    <view class="tip">
+      把某个周六或周日设为「按某个工作日的课表上课」。设置后全校老师与班级在该天看到的课表自动跟着变，不需要改课表本身。
+    </view>
+    <view class="btn btn-sm" bindtap="openForm">新增调休</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">已设置的调休 <text class="muted">{{items.length}} 项</text></view>
+    <view wx:if="{{items.length === 0}}" class="empty">还没有设置调休</view>
+    <view class="m-item" wx:for="{{items}}" wx:key="id">
+      <view class="m-main" bindtap="edit" data-id="{{item.id}}">
+        <view class="m-date">{{item.dateLabel}}</view>
+        <view class="m-desc">按{{item.weekdayName}}课表上课</view>
+        <view class="muted" wx:if="{{item.note}}">{{item.note}}</view>
+      </view>
+      <text class="del" catchtap="del" data-id="{{item.id}}">取消</text>
+    </view>
+  </view>
+
+  <!-- 新增 / 编辑弹层 -->
+  <view class="mask" wx:if="{{formOpen}}" bindtap="closeForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">{{editingId ? '修改调休' : '新增调休'}}</view>
+
+      <view class="field-label">哪一天（仅限周六或周日）</view>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="picker">{{dateLabel || '请选择日期'}}</view>
+      </picker>
+      <view class="muted tip-inline" wx:if="{{!isWeekend}}">这一天是工作日，调休只对周末生效</view>
+
+      <view class="field-label">这一天按哪一天的课表上课</view>
+      <picker mode="selector" range="{{weekdayOptions}}" range-key="text" value="{{weekdayIndex}}" bindchange="onWeekdayChange">
+        <view class="picker">{{weekdayText}}</view>
+      </picker>
+
+      <view class="field-label">当天课表预览</view>
+      <view wx:if="{{preview.length === 0}}" class="muted tip-inline">
+        {{isWeekend ? '该天课表为空' : '工作日按当天星期上课，无需预览'}}
+      </view>
+      <view class="pv-item" wx:for="{{preview}}" wx:key="period">
+        <text class="pv-period">{{item.label}}</text>
+        <text class="pv-subject">{{item.subject}}</text>
+        <text class="pv-time muted">{{item.time}}</text>
+      </view>
+
+      <view class="field-label">备注（选填）</view>
+      <input class="input" value="{{note}}" bindinput="onNoteInput" placeholder="如：国庆放假补课" />
+
+      <view class="btn-row">
+        <view class="btn btn-ghost btn-sm" bindtap="closeForm">取消</view>
+        <view class="btn btn-sm" bindtap="save">保存</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

@@ -1,0 +1,68 @@
+.page {
+  padding-bottom: 40rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.k {
+  width: 160rpx;
+  font-size: 26rpx;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.v {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.textarea {
+  min-height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.actions .btn {
+  flex: 1;
+}
+/* 两节课对调展示 */
+.slot-card {
+  background: #f8fafc;
+  border: 2rpx solid #e2e8f0;
+  border-radius: 14rpx;
+  padding: 18rpx 20rpx;
+  margin-bottom: 12rpx;
+}
+
+.slot-head {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 8rpx;
+}
+
+.slot-line {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.slot-arrow {
+  text-align: center;
+  font-size: 24rpx;
+  color: #94a3b8;
+  margin: 4rpx 0 12rpx;
+}

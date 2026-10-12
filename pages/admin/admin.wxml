@@ -1,0 +1,91 @@
+<view class="page">
+  <!-- 学校配置：仅超级管理员可见 -->
+  <view class="card" wx:if="{{isSuper}}">
+    <view class="card-title">学校配置</view>
+    <view class="menu" bindtap="goSchoolAdmin">
+      <text>添加学校与学校管理员</text>
+      <text class="muted">仅超级管理员可见 ›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">数据概览<text wx:if="{{schoolName}}" class="muted"> · {{schoolName}}</text></view>
+    <view class="grid4">
+      <view class="g4"><view class="g4-num">{{counts.classes}}</view><view class="g4-label">班级</view></view>
+      <view class="g4"><view class="g4-num">{{counts.teachers}}</view><view class="g4-label">教师</view></view>
+      <view class="g4"><view class="g4-num">{{counts.students}}</view><view class="g4-label">学生</view></view>
+      <view class="g4"><view class="g4-num">{{counts.schedules}}</view><view class="g4-label">课表节次</view></view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">数据导入</view>
+    <view class="menu" bindtap="goImportSchedule">
+      <text>导入班级课表</text><text class="muted">每表一个班级 · .xls/.xlsx ›</text>
+    </view>
+    <view class="menu" bindtap="goImportTeacherSchedule">
+      <text>导入教师课表</text><text class="muted">每表一位教师 ›</text>
+    </view>
+    <view class="menu" bindtap="goImportStudents">
+      <text>导入班级学生</text><text class="muted">每表一个班级 · 学号姓名 ›</text>
+    </view>
+    <view class="menu" bindtap="goImportTeachers">
+      <text>导入教师账号</text><text class="muted">账号 + 密码 ›</text>
+    </view>
+    <view class="menu" bindtap="goImportAccounts">
+      <text>导入班级账号</text><text class="muted">含班主任账号 ›</text>
+    </view>
+    <view class="menu" bindtap="newClass">
+      <text>新建班级</text><text class="muted">设置班级账号密码 ›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">状态与作息</view>
+    <view class="menu" bindtap="goStatusOptions">
+      <text>学生状态选项</text><text class="muted">{{statusOptions.length}} 项 ›</text>
+    </view>
+    <view class="menu" bindtap="goPeriods">
+      <text>作息时间</text><text class="muted">{{periods.length}} 节 ›</text>
+    </view>
+    <view class="menu" bindtap="goMakeup">
+      <text>调休设置</text><text class="muted">{{makeupCount}} 项 · 周末按工作日上课 ›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">教师管理</view>
+    <view class="t-row" wx:for="{{teachers}}" wx:key="id">
+      <view class="t-main">
+        <view class="t-name">{{item.name}}</view>
+        <view class="muted">{{item.account || '未设置账号'}}　{{item.subject_group || ''}}{{item.is_admin ? ' · 管理员' : ''}}</view>
+      </view>
+      <text class="del" catchtap="delTeacher" data-id="{{item.id}}" data-name="{{item.name}}">删除</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">班级管理</view>
+    <view wx:if="{{classes.length === 0}}" class="empty">还没有班级</view>
+    <view class="t-row" wx:for="{{classes}}" wx:key="id">
+      <view class="t-main">
+        <view class="t-name">{{item.name}}</view>
+        <view class="muted">{{item.account ? '账号 ' + item.account : '未设置班级账号'}}　{{item.studentCount}}名学生</view>
+      </view>
+      <text class="del" catchtap="delClass" data-id="{{item.id}}" data-name="{{item.name}}">删除</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">课表管理</view>
+    <view class="field-label">选择班级后可清空其课表</view>
+    <view class="cp-row">
+      <view class="cp {{item.id === pickedClassId ? 'on' : ''}}" wx:for="{{classes}}" wx:key="id"
+        bindtap="pickClass" data-id="{{item.id}}">{{item.name}}</view>
+    </view>
+    <view class="btn btn-danger btn-sm" bindtap="clearSchedule">清空该班课表</view>
+    <view class="muted tip-line">需要改课表内容时，重新导入更新后的课表文件即可（同名班级覆盖）。</view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">{{className}} · 本周课表</view>
+    <view class="hint">共 {{totalLessons}} 节课 · 点格子看教师与换课说明</view>
+
+    <scroll-view class="grid-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
+      <view class="grid">
+        <!-- 表头：节次列 + 星期一至星期五 -->
+        <view class="g-row g-head">
+          <view class="g-corner">节次</view>
+          <view class="g-col" wx:for="{{weekdays}}" wx:key="w">
+            <view class="g-head-name {{item.w === todayWeekday ? 'today' : ''}}">{{item.name}}</view>
+          </view>
+        </view>
+
+        <!-- 每一节 × 一周 -->
+        <view class="g-row" wx:for="{{rows}}" wx:key="period" wx:for-item="row">
+          <view class="g-corner">
+            <view class="g-corner-label">{{row.label}}</view>
+            <view class="g-corner-time">{{row.timeText}}</view>
+          </view>
+          <view
+            class="g-col"
+            wx:for="{{row.cells}}"
+            wx:key="key"
+            wx:for-item="cell"
+            bindtap="tapCell"
+            data-subject="{{cell.subject}}"
+            data-teacher-name="{{cell.teacherName}}"
+            data-swap-text="{{cell.swapText}}"
+            data-weekday="{{cell.weekday}}"
+            data-period="{{cell.period}}"
+            data-time-text="{{row.timeText}}"
+          >
+            <view class="g-cell {{cell.subject ? '' : 'empty-cell'}} {{cell.isToday ? 'today-col' : ''}} {{cell.swapped ? 'swapped' : ''}}">
+              <view class="g-subject" wx:if="{{cell.subject}}">{{cell.shortName}}</view>
+              <view class="g-teacher" wx:if="{{cell.subject && cell.teacherName}}">{{cell.teacherName}}</view>
+              <view class="g-swap" wx:if="{{cell.swapped}}">换</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="empty" wx:if="{{totalLessons === 0}}">这个班还没有导入课表</view>
+  </view>
+</view>

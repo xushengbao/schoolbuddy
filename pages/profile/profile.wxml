@@ -1,0 +1,74 @@
+<view class="page">
+  <view class="card">
+    <view class="head">
+      <view class="avatar">{{initial}}</view>
+      <view class="head-main">
+        <view class="h-name">{{session.name}}</view>
+        <view class="muted">{{roleText}}{{session.subjectGroup ? ' · ' + session.subjectGroup : ''}}</view>
+        <view class="muted" wx:if="{{schoolName}}">{{schoolName}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">账号安全</view>
+    <view class="field-label">当前账号：{{session.account}}</view>
+    <view class="field-label">原密码</view>
+    <view class="pwd-wrap">
+      <input class="input pwd-input" password="{{!showOldPwd}}" placeholder="请输入原密码" value="{{oldPwd}}" bindinput="onOldInput" />
+      <view class="pwd-eye" bindtap="toggleOldPwd">{{showOldPwd ? '隐藏' : '显示'}}</view>
+    </view>
+    <view class="field-label">新密码</view>
+    <view class="pwd-wrap">
+      <input class="input pwd-input" password="{{!showNewPwd}}" placeholder="请输入新密码" value="{{newPwd}}" bindinput="onNewInput" />
+      <view class="pwd-eye" bindtap="toggleNewPwd">{{showNewPwd ? '隐藏' : '显示'}}</view>
+    </view>
+    <view class="field-label">确认新密码</view>
+    <view class="pwd-wrap">
+      <input class="input pwd-input" password="{{!showConfirmPwd}}" placeholder="请再次输入新密码" value="{{confirmPwd}}" bindinput="onConfirmInput" />
+      <view class="pwd-eye" bindtap="toggleConfirmPwd">{{showConfirmPwd ? '隐藏' : '显示'}}</view>
+    </view>
+    <view class="btn" bindtap="changePassword">修改密码</view>
+  </view>
+
+  <view class="card" wx:if="{{session.isAdmin}}">
+    <view class="card-title">管理员功能</view>
+    <view class="menu" bindtap="goAdmin">
+      <text>配置中心</text>
+      <text class="muted">导入/删除/状态设置 ›</text>
+    </view>
+    <view class="menu" bindtap="goPeriods">
+      <text>作息时间设置</text>
+      <text class="muted">节次与上下课时间 ›</text>
+    </view>
+    <view class="menu" bindtap="goStatusOptions">
+      <text>状态选项设置</text>
+      <text class="muted">学生状态可编辑项 ›</text>
+    </view>
+    <view class="menu" wx:if="{{session.role === 'super'}}" bindtap="goSchoolAdmin">
+      <text>导入学校</text>
+      <text class="muted">仅超级管理员可见 ›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="menu" bindtap="goTeachers">
+      <text>教师状态总览</text>
+      <text class="muted">›</text>
+    </view>
+    <view class="menu" bindtap="goMessage">
+      <text>班级消息</text>
+      <text class="muted">›</text>
+    </view>
+    <view class="menu" bindtap="goDisplay">
+      <text>班级通知大屏</text>
+      <text class="muted">›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="btn btn-ghost" bindtap="logout">退出登录</view>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

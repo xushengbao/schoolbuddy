@@ -1,0 +1,118 @@
+<view class="page">
+  <!-- 超级管理员身份条 + 退出登录 -->
+  <view class="card">
+    <view class="bar" bindtap="goProfile">
+      <view class="bar-l">
+        <view class="bar-name">{{session.name || '超级管理员'}}</view>
+        <view class="muted">账号 {{session.account || '-'}} · 超级管理员</view>
+      </view>
+      <text class="muted">查看资料 ›</text>
+    </view>
+    <view class="btn btn-ghost btn-sm mt" bindtap="onLogout">退出登录</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">学校配置</view>
+    <view class="muted">仅超级管理员可见 · 导入学校与学校管理员</view>
+  </view>
+
+  <!-- 从模版导入：学校 + 管理员一体 -->
+  <view class="card">
+    <view class="card-title">导入学校与管理员</view>
+    <view class="tip">
+      使用「学校模版」，表头为：学校 / 管理员 / 组别 / 账号 / 密码。
+      每行会同时创建学校与该学校的管理员账号；学校已存在时只补建管理员。
+    </view>
+    <view class="btn btn-ghost btn-sm" bindtap="pickFile">选择学校模版文件</view>
+
+    <view class="file-name" wx:if="{{fileName}}">已读取 {{fileName}}</view>
+
+    <view class="mt" wx:if="{{preview.length}}">
+      <view class="field-label">内容预览</view>
+      <scroll-view scroll-x class="preview">
+        <view class="pv-inner">
+          <view class="pv-row" wx:for="{{preview}}" wx:key="index" wx:for-item="row">
+            <text class="pv-cell" wx:for="{{row}}" wx:key="index" wx:for-item="cell">{{cell}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="mt" wx:if="{{sheets}}">
+      <button class="btn" loading="{{busy}}" disabled="{{busy}}" bindtap="onSubmit">确认导入</button>
+    </view>
+  </view>
+
+  <!-- 导入结果 -->
+  <view class="card" wx:if="{{result}}">
+    <view class="card-title">导入结果</view>
+    <view class="result-msg">{{result.message}}</view>
+    <view class="muted" wx:for="{{result.errors}}" wx:key="*this">{{item}}</view>
+    <view class="hint mt" wx:if="{{result.createdSchools.length}}">
+      新建学校：{{result.createdSchools.join('、')}}
+    </view>
+  </view>
+
+  <!-- 学校列表 -->
+  <view class="card">
+    <view class="card-title">学校列表</view>
+    <view class="muted">点选学校可查看该校的管理员账号。</view>
+    <view wx:if="{{!loading && !schools.length}}" class="empty">还没有学校，先在上方导入</view>
+    <view
+      class="menu {{selectedSchoolId === item.id ? 'menu-on' : ''}}"
+      wx:for="{{schools}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="pickSchool"
+    >
+      <text>{{item.name}}</text>
+      <text class="muted">{{item.code || '无编码'}} ›</text>
+    </view>
+  </view>
+
+  <!-- 所选学校的管理员账号（超级管理员可查看） -->
+  <view class="card">
+    <view class="card-title">学校管理员账号</view>
+    <view class="muted">
+      <text wx:if="{{selectedSchoolId}}">当前学校：{{selectedSchoolName}}</text>
+      <text wx:else>请先在上方选择学校</text>
+    </view>
+    <view wx:if="{{!selectedSchoolId}}" class="empty">请先选择学校</view>
+    <view wx:elif="{{!admins.length}}" class="empty">该校还没有设置管理员，可用下方「提升已有教师为管理员」</view>
+    <view class="t-row" wx:for="{{admins}}" wx:key="id">
+      <view class="t-main">
+        <view class="t-name">{{item.name}}</view>
+        <view class="muted">{{item.subject_group || '未分组'}} · {{item.status || '在位中'}}</view>
+      </view>
+      <view class="acct" catchtap="copyAccount" data-account="{{item.account}}">
+        <text class="acct-n">{{item.account}}</text>
+        <text class="muted">复制</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 仅建学校 -->
+  <view class="card">
+    <view class="card-title">仅新建学校</view>
+    <view class="muted">不需要管理员账号时，可先只创建学校。</view>
+    <input class="input mt" placeholder="学校名称（必填）" placeholder-class="ph" value="{{newName}}" bindinput="onNameInput" />
+    <button class="btn btn-sm" loading="{{busy}}" disabled="{{busy}}" bindtap="onCreateSchool">创建学校</button>
+  </view>
+
+  <!-- 把已有教师设为管理员 -->
+  <view class="card">
+    <view class="card-title">提升已有教师为管理员</view>
+    <view class="muted">先在上方点选学校，再填写该校内已导入的教师账号。多个用换行或逗号分隔。</view>
+    <textarea
+      class="input mt"
+      placeholder="例如：&#10;13500000001&#10;13500000002"
+      placeholder-class="ph"
+      value="{{adminAccounts}}"
+      bindinput="onAdminsInput"
+      maxlength="500"
+    />
+    <button class="btn btn-sm" loading="{{busy}}" disabled="{{busy}}" bindtap="onGrantAdmin">设为学校管理员</button>
+  </view>
+
+  <view style="height:40rpx"></view>
+</view>

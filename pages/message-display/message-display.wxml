@@ -1,0 +1,44 @@
+<view class="display">
+  <view class="d-head">
+    <view>
+      <view class="d-title">{{className}} · 班级通知</view>
+      <view class="d-sync">{{lastSyncText}} · 每 5 秒自动刷新</view>
+    </view>
+    <view class="d-time">{{clockText}}</view>
+  </view>
+
+  <!-- 未开启播报时的引导层：微信要求音频首次播放必须由用户手势触发 -->
+  <view wx:if="{{!autoPlay}}" class="d-guide" bindtap="enableAuto">
+    <view class="d-guide-title" wx:if="{{ttsSupported}}">🔊 点此开启语音播报</view>
+    <view class="d-guide-title" wx:else>🔕 语音播报未启用</view>
+    <view class="d-guide-sub" wx:if="{{ttsSupported}}">开启后，教师发来的语音通知将自动朗读</view>
+    <view class="d-guide-sub" wx:else>通知将以醒目文字展示，内容不会遗漏</view>
+    <view wx:if="{{!ttsSupported}}" class="d-guide-warn">如需语音播报，请先在微信公众平台开通「微信同声传译」插件</view>
+  </view>
+
+  <view class="d-body">
+    <view wx:if="{{messages.length === 0}}" class="empty">暂无通知</view>
+    <view class="d-item {{item.mode === 'voice' ? 'd-voice' : ''}} {{item.id === latestId ? 'd-new' : ''}}"
+      wx:for="{{messages}}" wx:key="id">
+      <view wx:if="{{item.id === latestId}}" class="d-badge">最新</view>
+      <view class="d-meta">
+        <text class="d-teacher">{{item.teacher_name}}</text>
+        <text class="tag d-mode">{{item.mode === 'voice' ? '语音播报' : '静默文字'}}</text>
+        <text class="d-spacer"></text>
+        <text class="muted">{{item.timeText}}</text>
+      </view>
+      <view class="d-content">{{item.content}}</view>
+      <view wx:if="{{item.mode === 'voice'}}" class="d-foot">
+        <view class="play {{item.id === speakingId ? 'playing' : ''}}"
+          catchtap="play" data-id="{{item.id}}" data-text="{{item.content}}">
+          {{item.id === speakingId ? '🔊 播报中' : '▶ 播报这条' }}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="d-foot-bar">
+    <view class="btn btn-sm btn-ghost" bindtap="toggleAuto">{{autoPlay ? '关闭自动播报' : '开启自动播报' }}</view>
+    <view class="btn btn-sm btn-ghost" bindtap="load">立即刷新</view>
+  </view>
+</view>

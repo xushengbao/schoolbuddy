@@ -1,0 +1,57 @@
+.sub-title {
+  font-size: 27rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+.current {
+  margin-top: 12rpx;
+}
+
+.opt-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.opt {
+  padding: 12rpx 26rpx;
+  border-radius: 999rpx;
+  background: #f1f5f9;
+  font-size: 25rpx;
+  color: #4b5563;
+  margin: 0 14rpx 12rpx 0;
+}
+
+.opt.on {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.period-block {
+  padding: 18rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.period-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14rpx;
+}
+
+.period-name {
+  font-size: 26rpx;
+  color: #374151;
+  font-weight: 600;
+}
+
+.field-label {
+  font-size: 26rpx;
+  color: #6b7280;
+  margin-bottom: 12rpx;
+}
+
+.textarea {
+  min-height: 120rpx;
+  margin-bottom: 20rpx;
+}

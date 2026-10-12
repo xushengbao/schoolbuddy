@@ -1,0 +1,229 @@
+.hero {
+  background: linear-gradient(150deg, #2563eb 0%, #1d4ed8 100%);
+  padding: 40rpx 32rpx 32rpx;
+  color: #ffffff;
+}
+
+.hero-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.hero-left {
+  flex: 1;
+}
+
+.hero-date {
+  font-size: 30rpx;
+  opacity: 0.9;
+}
+
+.hero-time {
+  font-size: 68rpx;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 2rpx;
+  margin: 6rpx 0;
+}
+
+.hero-greet {
+  font-size: 26rpx;
+  opacity: 0.88;
+}
+
+.hero-school {
+  font-size: 22rpx;
+  opacity: 0.75;
+  margin-top: 4rpx;
+}
+
+.hero-period {
+  margin-top: 24rpx;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 14rpx;
+  padding: 14rpx 20rpx;
+  font-size: 25rpx;
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #fde047;
+  margin-right: 12rpx;
+}
+
+.link {
+  color: #2563eb;
+  font-size: 26rpx;
+  font-weight: 400;
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.lesson:last-child {
+  border-bottom: none;
+}
+
+.lesson-now {
+  background: #eff6ff;
+  margin: 0 -16rpx;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+  border-radius: 12rpx;
+}
+
+.lesson-swap {
+  background: #fffbeb;
+}
+
+.lesson-period {
+  width: 110rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.period-no {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.1;
+}
+
+.period-label {
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.lesson-main {
+  flex: 1;
+  padding-left: 12rpx;
+}
+
+.lesson-subject {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.lesson-meta {
+  font-size: 23rpx;
+  color: #6b7280;
+  margin-top: 6rpx;
+}
+
+.badge {
+  font-size: 19rpx;
+  background: #f59e0b;
+  color: #ffffff;
+  border-radius: 6rpx;
+  padding: 2rpx 8rpx;
+  margin-left: 8rpx;
+  vertical-align: middle;
+}
+
+.btn-swap {
+  font-size: 24rpx;
+  color: #2563eb;
+  border: 2rpx solid #bfdbfe;
+  border-radius: 999rpx;
+  padding: 8rpx 20rpx;
+}
+
+.live-class {
+  padding: 18rpx 0;
+  border-bottom: 2rpx solid #f1f5f9;
+}
+
+.live-class:last-child {
+  border-bottom: none;
+}
+
+.live-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.live-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.live-chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip {
+  margin: 0 12rpx 8rpx 0;
+}
+
+.memo {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #f8fafc;
+}
+
+.memo:last-child {
+  border-bottom: none;
+}
+
+.checkbox {
+  width: 32rpx;
+  height: 32rpx;
+  border: 3rpx solid #d1d5db;
+  border-radius: 8rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.checkbox.checked {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  width: 25%;
+  text-align: center;
+  padding: 18rpx 0;
+}
+
+.grid-ico {
+  font-size: 46rpx;
+}
+
+.grid-txt {
+  font-size: 24rpx;
+  color: #374151;
+  margin-top: 8rpx;
+}
+/* 调休提示：当天按另一个工作日的课表上课 */
+.makeup-tip {
+  font-size: 23rpx;
+  color: #b45309;
+  background: #fffbeb;
+  border-left: 6rpx solid #f59e0b;
+  padding: 12rpx 16rpx;
+  margin-bottom: 16rpx;
+  line-height: 1.5;
+}
